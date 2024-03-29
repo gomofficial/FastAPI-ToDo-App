@@ -1,24 +1,23 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./todo.db"
+SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./todo.db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, 
-    connect_args={"check_same_thread":False}
-    )
+engine = create_async_engine(SQLALCHEMY_DATABASE_URL)
 
-SessionLocal = sessionmaker(bind=engine,
+SessionLocal = async_sessionmaker(bind=engine,
                             autocommmit=False,
                             autoflush=False,
                             )
 
-Base = declarative_base()
+class Base(DeclarativeBase, MappedAsDataclass):
+    pass
 
-def get_db():
+async def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
-        db.close()
+        await db.close()
 
