@@ -1,5 +1,5 @@
 from .engine import Base
-from ..account.models import User, Category, Task
+from .models import User, Category, Task
 
 __all__= [
     "Base",
@@ -7,6 +7,3 @@ __all__= [
     "Category",
     "Task",
 ]
-
-Base.metadata.create_all(bind=engine)
-

@@ -1,5 +1,5 @@
-
-from ..db.engine import Base
+from uuid import uuid64, UUID
+from .engine import Base
 from sqlalchemy import (ForeignKey)
 from sqlalchemy.orm import relationship,Mapped,mapped_column
 
@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship,Mapped,mapped_column
 class Users(Base):
     __tablename__ = 'users'
 
-    id: Mapped[int]         = mapped_column(primary_key=True)
+    id: Mapped[UUID]         = mapped_column(primary_key=True, default_factory=uuid64)
     username: Mapped[str]   = mapped_column(unique=True, nullable=False)
     email: Mapped[str]      = mapped_column(unique=True, nullable=False)
     password: Mapped[str]   = mapped_column(nullable=False)
@@ -21,7 +21,7 @@ class Users(Base):
 class Category(Base):
     __tablename__ = 'categories'
 
-    id: Mapped[int]         = mapped_column(primary_key=True, index=True)
+    id: Mapped[UUID]         = mapped_column(primary_key=True, default_factory=uuid64)
     name: Mapped[str]       = mapped_column(nullable=False)
     # user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
 
@@ -33,7 +33,7 @@ class Category(Base):
 class Task(Base):
     __tablename__ = 'tasks'
 
-    id: Mapped[int]         = mapped_column(Integer, primary_key=True, index=True))
+    id: Mapped[UUID]         = mapped_column(primary_key=True, default_factory=uuid64)
     name: Mapped[str]       = mapped_column(nullable=False)
     description: Mapped[str]       = mapped_column()
     # user_id = Column(Integer, ForeignKey('users.id'), nullable=False)

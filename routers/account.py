@@ -1,11 +1,12 @@
-from  fastapi import APIRouter
+from  fastapi import APIRouter, Body
+from  schema._input import RegisterInput
 
 auth_router = APIRouter()
 
 
 @auth_router.post('/register')
-async def register():
-    ...
+async def register(data:RegisterInput = Body()):
+    return data
 
 
 @auth_router.post("/login")
