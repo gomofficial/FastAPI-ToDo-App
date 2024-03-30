@@ -1,4 +1,4 @@
-from .engine import Base
+from .engine import Base, engine
 from .models import User, Category, Task
 
 __all__= [

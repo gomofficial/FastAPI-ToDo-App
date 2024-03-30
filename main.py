@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers.account import auth_router
+from routers.users import auth_router
 from db import engine, Base
 
 app = FastAPI()
