@@ -48,5 +48,5 @@ then view the site at  http://localhost:8000/
   navigate to `http://127.0.0.1:8000/docs/`
 
 ## Features
- rest api using fastapi
+ rest api using fastapi,
  jwt authentications
