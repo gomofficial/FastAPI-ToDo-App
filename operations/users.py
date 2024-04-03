@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.models import User
+from exceptions import UserNotFoundError
 import sqlalchemy as sa
 
 class UsersOperation:
@@ -21,7 +22,7 @@ class UsersOperation:
             user_data = await session.scalar(query)
 
             if user_data is None:
-                raise ValueError("usernotfound")
+                raise UserNotFoundError
             
             return user_data
         
@@ -36,7 +37,7 @@ class UsersOperation:
             user_data = await session.scalar(query)
 
             if user_data is None:
-                raise ValueError("usernotfound")
+                raise UserNotFoundError
 
             await session.execute(update_query)
             await session.commit()
