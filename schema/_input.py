@@ -7,9 +7,8 @@ class RegisterInput(BaseModel):
     password:str
 
 class UpdateUserProfile(BaseModel):
-    old_username:str
     new_username:str
 
-class DeleteUserProfile(BaseModel):
+class AuthenticateUser(BaseModel):
     username:str
     password:str
