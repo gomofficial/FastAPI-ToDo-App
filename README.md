@@ -42,8 +42,6 @@ And navigate to `http://127.0.0.1:8000/`.
 
 then view the site at  http://localhost:8000/ 
 
-## Tests
-
 ## API Docs 
   navigate to `http://127.0.0.1:8000/docs/`
 
