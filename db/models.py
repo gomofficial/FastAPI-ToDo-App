@@ -9,7 +9,7 @@ association_table = Table(
     "association_table",
     Base.metadata,
     Column("categories", ForeignKey("categories.id"), primary_key=True),
-    Column("tasks", ForeignKey("tasksA.id"), primary_key=True),)
+    Column("tasks", ForeignKey("tasks.id"), primary_key=True),)
 
 
 class User(Base):
