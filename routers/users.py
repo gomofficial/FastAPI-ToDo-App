@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from operations.users import UsersOperation
 from schema import jwt
 from utils.jwt import JWTHandler
+
 auth_router = APIRouter()
 
 

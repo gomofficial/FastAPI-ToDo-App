@@ -12,3 +12,9 @@ class UpdateUserProfile(BaseModel):
 class AuthenticateUser(BaseModel):
     username:str
     password:str
+
+class CategoryInput(BaseModel):
+    ...
+
+class TaskInput(BaseModel):
+    ...

@@ -9,6 +9,8 @@ venv
 env
 
 
+.db
+
 ### Django ###
 *.log
 *.pot
