@@ -2,14 +2,14 @@ from uuid import uuid4, UUID
 from .engine import Base
 from sqlalchemy import (ForeignKey, Column, Table)
 from sqlalchemy.orm import relationship,Mapped,mapped_column
-from typing import List
+from typing import List,Optional
 
 
 association_table = Table(
     "association_table",
     Base.metadata,
-    Column("categories", ForeignKey("categories.id"), primary_key=True),
-    Column("tasks", ForeignKey("tasks.id"), primary_key=True),)
+    Column("categories", ForeignKey("categories.id", ondelete="CASCADE"), primary_key=True),
+    Column("tasks", ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True))
 
 
 class User(Base):
@@ -32,8 +32,8 @@ class User(Base):
 class Category(Base):
     __tablename__ = 'categories'
 
-    name: Mapped[str]         = mapped_column(nullable=False)
-    user_id:Mapped[int]       = mapped_column(ForeignKey("users.id"))
+    name: Mapped[str]         = mapped_column(unique=True, nullable=False)
+    user_id:Mapped[UUID]       = mapped_column(ForeignKey("users.id",ondelete="CASCADE"))
     user: Mapped["User"]      = relationship(back_populates="categories")
     tasks: Mapped[List["Task"]] = relationship(
         secondary=association_table, back_populates="categories")
@@ -47,11 +47,13 @@ class Task(Base):
 
     name: Mapped[str]         = mapped_column(nullable=False)
     description: Mapped[str]  = mapped_column()
-    user_id:Mapped[int]       = mapped_column(ForeignKey("users.id"))
+    user_id:Mapped[UUID]       = mapped_column(ForeignKey("users.id",ondelete="CASCADE"))
     user: Mapped["User"]      = relationship(back_populates="tasks")
+    
     categories: Mapped[List["Category"]] = relationship(
         secondary=association_table, back_populates="tasks")
     id: Mapped[UUID]          = mapped_column(primary_key=True, default_factory=uuid4)
 
     def __repr__(self):
         return f"<Task {self.name}"
+ 

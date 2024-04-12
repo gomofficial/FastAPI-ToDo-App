@@ -73,3 +73,4 @@ class UsersOperation:
                 raise UserAuthenticationError
             
             return JWTHandler.generate(username)
+ 

@@ -1,7 +1,8 @@
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+from settings import *
 
-SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./todo.db"
+SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL
 
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL)
 
@@ -22,3 +23,4 @@ async def get_db():
     finally:
         await db.close()
 
+ 
