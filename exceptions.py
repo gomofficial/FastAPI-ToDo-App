@@ -16,3 +16,13 @@ class UserAuthenticationError(HTTPException):
         def __init__(self):
             self.status_code = status.HTTP_400_BAD_REQUEST
             self.detail="wrong username or password"
+
+class CategoryAlreadyExists(HTTPException):
+        def __init__(self):
+            self.status_code = status.HTTP_400_BAD_REQUEST
+            self.detail="category already exists"
+
+class CategoryDoesntExists(HTTPException):
+        def __init__(self):
+            self.status_code = status.HTTP_400_BAD_REQUEST
+            self.detail="category does not exist"
