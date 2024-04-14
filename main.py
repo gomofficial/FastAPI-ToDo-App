@@ -14,5 +14,5 @@ async def init_table():
 
 
 app.include_router(auth_router, prefix='/account', tags=['account'])
-app.include_router(auth_router, prefix='/category', tags=['category'])
-app.include_router(auth_router, prefix='/task', tags=['task'])
+app.include_router(category_router, prefix='/category', tags=['category'])
+app.include_router(task_router, prefix='/task', tags=['task'])

@@ -3,7 +3,7 @@ from db.models import User
 from utils.secrets import password_manager
 from exceptions import UserNotFoundError, UserAlreadyExists, UserAuthenticationError
 import sqlalchemy as sa
-from schema.output import RegisterOutput
+from schema.output import RegisterOutput, UserOutput
 from sqlalchemy.exc import IntegrityError
 from utils.jwt import JWTHandler
 
@@ -30,8 +30,10 @@ class UsersOperation:
 
             if user_data is None:
                 raise UserNotFoundError
-            
-            return user_data
+
+            return UserOutput(username = user_data.username, email = user_data.email,
+                              is_staff = user_data.is_staff, is_active = user_data.is_active,
+                              id = user_data.id)
         
     async def update_username(self, old_username: str, new_username: str) -> User:
         query = sa.select(User).where(User.username == old_username)
