@@ -12,6 +12,15 @@ class RegisterOutput(BaseModel):
     username:str
     id: UUID
 
+
+
 class CategoryOutput(BaseModel):
     id:UUID
     name:str
+
+class TaskOutput(BaseModel):
+    id:UUID
+    name:str
+    description:str
+    category_id:UUID
+    

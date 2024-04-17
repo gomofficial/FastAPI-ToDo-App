@@ -13,7 +13,6 @@ class CategoryOperation:
 
     async def create(self,name:str, username:str, ):
         user_query = sa.select(User).where(User.username==username)
-        # cat = Category(user_id=user.id,name=name)
 
         async with self.db_session as session:
             user_data = await session.scalar(user_query)
