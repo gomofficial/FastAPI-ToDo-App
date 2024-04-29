@@ -9,6 +9,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def init_table():
+    print(engine)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
@@ -16,3 +17,4 @@ async def init_table():
 app.include_router(auth_router, prefix='/account', tags=['account'])
 app.include_router(category_router, prefix='/category', tags=['category'])
 app.include_router(task_router, prefix='/task', tags=['task'])
+

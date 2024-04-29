@@ -13,7 +13,10 @@ class UsersOperation:
 
     async def create(self,username:str,email:str,password:str):
         user_pwd = password_manager.hash(password)
-        user = User(username=username, email=email, password=user_pwd)
+        user = User()
+        user.username = username
+        user.email    = email
+        user.password = user_pwd
         async with self.db_session as session:
             try:
                 session.add(user)
