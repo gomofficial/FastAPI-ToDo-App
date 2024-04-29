@@ -1,12 +1,12 @@
-from os import environ as env
+from os import environ
 
 
-RUNTIME_CONTEXT = env.get('RUNTIME_CONTEXT', 'uvicorn')
+RUNTIME_CONTEXT = environ.get('RUNTIME_CONTEXT', None)
 
 
 if RUNTIME_CONTEXT == 'docker':
-    SECRET_KEY:str = env['Secret_Key']
-    SQLALCHEMY_DATABASE_URL:str = "postgresql+asyncpg://"+str(env['POSTGRES_USER'])+":"+env['POSTGRES_PASSWORD']+"@db:5432/"+env['POSTGRES_DB']
+    SECRET_KEY:str = environ.get('Secret_Key')
+    SQLALCHEMY_DATABASE_URL:str = "postgresql+asyncpg://"+str(environ.get('POSTGRES_USER'))+":"+environ.get('POSTGRES_PASSWORD')+"@db:5432/"+environ.get('POSTGRES_DB')
 else:
     SECRET_KEY:str = 'SOME_SECRET_KEY'
     SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./todo.db"
