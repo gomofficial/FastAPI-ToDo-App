@@ -4,8 +4,12 @@ services:
   web:
     build:  .
     command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
-    env_file:
-      - .env
+    environment:
+      - Secret_Key=SOME_SECRET_KEY
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=todo_list
+      - RUNTIME_CONTEXT=docker
     ports:
       - 8000:8000
     volumes:
