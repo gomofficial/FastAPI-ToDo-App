@@ -4,12 +4,13 @@ from exceptions import UserNotFoundError, UserAlreadyExists, UserAuthenticationE
 import sqlalchemy as sa
 from schema.output import RegisterOutput
 from sqlalchemy.exc import IntegrityError
-from utils.jwt import JWTHandler
+from utils.auth import JWTHandler
 from uuid import UUID
 
 class CategoryOperation:
     def __init__(self, db_session:AsyncSession) -> None:
         self.db_session = db_session
+
 
     async def create(self,name:str, username:str, ):
         user_query = sa.select(User).where(User.username==username)

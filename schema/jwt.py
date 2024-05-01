@@ -6,4 +6,4 @@ class JWTPayload(BaseModel):
 
 
 class JWTResponsePayload(BaseModel):
-    access: str
+    access_token: str

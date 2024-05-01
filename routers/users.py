@@ -5,7 +5,8 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 from operations.users import UsersOperation
 from schema import jwt
-from utils.jwt import JWTHandler
+from utils.auth import JWTHandler
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 auth_router = APIRouter()
 
@@ -50,7 +51,7 @@ async def user_delete_account(db_session: Annotated[AsyncSession, Depends(get_db
 
 @auth_router.post("/login")
 async def authenticate(db_session: Annotated[AsyncSession, Depends(get_db)],
-                              data:AuthenticateUser = Body()):
-    token = await UsersOperation(db_session).login(data.username,data.password)
+                              form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
+    token = await UsersOperation(db_session).login(form_data.username,form_data.password)
     return token
 

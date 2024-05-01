@@ -4,7 +4,7 @@ from exceptions import UserNotFoundError, UserAlreadyExists, UserAuthenticationE
 import sqlalchemy as sa
 from schema.output import RegisterOutput
 from sqlalchemy.exc import IntegrityError
-from utils.jwt import JWTHandler
+from utils.auth import JWTHandler
 
 # class CategoryOperation:
 #     def __init__(self, db_session:AsyncSession) -> None:
