@@ -7,7 +7,7 @@ from operations.categories import CategoryOperation
 from schema import jwt
 from schema._input import CategoryInput
 from schema.output import CategoryOutput
-from utils.jwt import JWTHandler
+from utils.auth import JWTHandler
 from typing import List
 
 

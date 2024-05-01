@@ -4,8 +4,12 @@ from exceptions import TaskDoesntExists,CategoryDoesntExists
 import sqlalchemy as sa
 from schema.output import TaskOutput
 from sqlalchemy.exc import IntegrityError
+<<<<<<< HEAD
 from utils.jwt import JWTHandler
 from uuid import UUID
+=======
+from utils.auth import JWTHandler
+>>>>>>> 5205ac8fbdda6834173f48e97189dbbb07857b4a
 
 class TaskOperation:
     def __init__(self, db_session:AsyncSession) -> None:
