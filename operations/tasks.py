@@ -36,42 +36,46 @@ class TaskOperation:
 
             return task
     
-    # async def retrieve(self, username:str, ):
-    #     user_query  = sa.select(User).where(User.username == username)
-    #     async with self.db_session as session:
-    #         user = await session.scalar(user_query)
-    #         query = sa.select(Task).where(Category.user_id == user.id)
-    #         cats = await session.scalars(query)
+    async def retrieve(self, username:str, ):
+        user_query  = sa.select(User).where(User.username == username)
+        async with self.db_session as session:
+            user = await session.scalar(user_query)
+            query = sa.select(Task).where(Task.user_id == user.id)
+            tasks = await session.scalars(query)
 
-    #         return cats
+            return tasks
 
-    # async def update(self, id:UUID, new_name:str, ):
-    #     query = sa.select(Category).where(Category.id == id)
-    #     update_query =sa.update(Category).where(Category.id == id).values(name=new_name)
+    async def update(self, id:UUID, new_name:str, new_description:str, new_cat_id:str):
+        query = sa.select(Task).where(Task.id == id)
+        cat_query = sa.select(Category).where(Category.id==id)
+        async with self.db_session as session:
+            task = await session.scalar(query)
+            if task is None:
+                raise TaskDoesntExists
+            cat = await session.scalar(cat_query)
+            if cat is None:
+                raise CategoryDoesntExists
+            update_query =sa.update(Task).where(Task.id == id).values(name=new_name,
+                                               description=new_description,
+                                                cat_id=cat.id
+                                                category=cat)
+            task.name = new_name
+            await session.execute(update_query)
+            await session.commit()
+            task.name = new_name
 
-    #     async with self.db_session as session:
-    #         cat = await session.scalar(query)
-    #         if cat is None:
-    #             raise CategoryDoesntExists
-    #         cat.name = new_name
+            return task               
 
-    #         await session.execute(update_query)
-    #         await session.commit()
+    async def delete(self, id:UUID, ):
+        query = sa.select(Task).where(Task.id == id)
+        delete_query =sa.delete(Task).where(Task.id == id)
+        async with self.db_session as session:
+            task = await session.scalar(query)
+            if task is None:
+                raise TaskDoesntExists
 
-    #         cat.name = new_name
+            await session.execute(delete_query)
+            await session.commit()
 
-    #         return cat
-
-    # async def delete(self, id:UUID, ):
-    #     query = sa.select(Category).where(Category.id == id)
-    #     delete_query =sa.delete(Category).where(Category.id == id)
-    #     async with self.db_session as session:
-    #         cat = await session.scalar(query)
-    #         if cat is None:
-    #             raise CategoryDoesntExists
-
-    #         await session.execute(delete_query)
-    #         await session.commit()
-
-    #         return cat
+            return task
 
