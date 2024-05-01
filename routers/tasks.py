@@ -5,12 +5,13 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 from operations.tasks import TaskOperation
 from schema import jwt
+from schema.output import TaskOutput
 from utils.auth import JWTHandler
 
 task_router = APIRouter()
 
 
-@task_router.post("/")
+@task_router.post("/", response_model=TaskOutput)
 async def create(db_session: Annotated[AsyncSession, Depends(get_db)],
                     data: TaskInput = Body(),
                     token_data:jwt.JWTPayload = Depends(JWTHandler.verify_token)):

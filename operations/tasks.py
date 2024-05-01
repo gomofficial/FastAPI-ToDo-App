@@ -18,14 +18,11 @@ class TaskOperation:
         async with self.db_session as session:
             user_data = await session.scalar(user_query)
             cat_data  = await session.scalar(category_query)
-
             task = Task(user_id=user_data.id,name=name,user=user_data
                         ,description=description, cat_id=category_id, category=cat_data,)
 
             session.add(task)
-
             await session.commit()
-
             return task
     
     # async def retrieve(self, username:str, ):

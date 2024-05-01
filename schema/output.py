@@ -22,5 +22,4 @@ class TaskOutput(BaseModel):
     id:UUID
     name:str
     description:str
-    category_id:UUID
     
