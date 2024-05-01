@@ -5,15 +5,7 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 from operations.tasks import TaskOperation
 from schema import jwt
-<<<<<<< HEAD
-from schema._input import TaskInput
-from schema.output import TaskOutput
-from utils.jwt import JWTHandler
-from typing import List, Optional
-
-=======
 from utils.auth import JWTHandler
->>>>>>> 5205ac8fbdda6834173f48e97189dbbb07857b4a
 
 task_router = APIRouter()
 
