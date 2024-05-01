@@ -32,3 +32,8 @@ class TaskDoesntExists(HTTPException):
     def __init__(self):
         self.status_code = status.HTTP_400_BAD_REQUEST
         self.detail="task does not exist"
+
+class TaskAlreadyExists(HTTPException):
+    def __init__(self):
+        self.status_code = status.HTTP_400_BAD_REQUEST
+        self.detail="task already exists"

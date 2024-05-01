@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.models import Task,Category,User
-from exceptions import TaskDoesntExists,CategoryDoesntExists
+from exceptions import TaskDoesntExists,TaskAlreadyExists
 import sqlalchemy as sa
 from schema.output import TaskOutput
 from sqlalchemy.exc import IntegrityError
@@ -19,12 +19,19 @@ class TaskOperation:
             user_data = await session.scalar(user_query)
             cat_data  = await session.scalar(category_query)
 
-            task = Task(user_id=user_data.id,name=name,user=user_data
-                        ,description=description, cat_id=category_id, category=cat_data,)
-
+            task = Task()
+            task.user_id = user_data.id
+            task.name=name
+            task.user=user_data
+            task.description=description
+            task.cat_id=cat_data.id
+            task.category=cat_data
+            
+            # try:
             session.add(task)
-
             await session.commit()
+            # except IntegrityError:
+            #     raise TaskAlreadyExists
 
             return task
     

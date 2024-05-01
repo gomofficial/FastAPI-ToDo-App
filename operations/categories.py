@@ -16,7 +16,10 @@ class CategoryOperation:
 
         async with self.db_session as session:
             user_data = await session.scalar(user_query)
-            cat = Category(user_id=user_data.id,name=name,user=user_data)
+            cat = Category()
+            cat.user_id=user_data.id
+            cat.name=name
+            cat.user=user_data
             
             try:
                 session.add(cat)
