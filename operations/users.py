@@ -5,7 +5,7 @@ from exceptions import UserNotFoundError, UserAlreadyExists, UserAuthenticationE
 import sqlalchemy as sa
 from schema.output import RegisterOutput, UserOutput
 from sqlalchemy.exc import IntegrityError
-from utils.jwt import JWTHandler
+from utils.auth import JWTHandler
 
 class UsersOperation:
     def __init__(self, db_session:AsyncSession) -> None:
@@ -64,7 +64,7 @@ class UsersOperation:
     
     async def login(self, username:str, password:str)-> str:
         query = sa.select(User).where(User.username == username)
-
+        print(username, password)
         async with self.db_session as session:
             user = await session.scalar(query)
             
